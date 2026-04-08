@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Money Transfer</title>
+    <style>
+        body{
+            background: linear-gradient(135deg,#1e3c72,#2a5298);
+            font-family: Arial, sans-serif;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .card{
+            background:white;
+            width:420px;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 15px 30px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        h1{
+            color:#1e3c72;
+            margin-bottom:20px;
+        }
+        input{
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:15px;
+        }
+        button{
+            width:100%;
+            padding:12px;
+            background:#1e3c72;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+        button:hover{
+            background:#16325c;
+        }
+        .msg{
+            margin-top:15px;
+            font-weight:bold;
+            color:green;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Money Transfer</h1>
+
+    <!-- 16-digit constraint -->
+    <input type="text" id="account"
+           placeholder="16-digit Account Number"
+           maxlength="16"
+           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+    <input type="number" id="amount" placeholder="Transfer Amount">
+
+    <button onclick="transferMoney()">Transfer</button>
+
+    <div class="msg" id="message"></div>
+
+    <button onclick="window.location.href='balance.html'">
+        Back to Balance
+    </button>
+</div>
+
+<script>
+    function transferMoney(){
+        let acc = document.getElementById("account").value;
+        let amt = parseInt(document.getElementById("amount").value);
+        let balance = parseInt(localStorage.getItem("balance"));
+
+        // 16-digit validation
+        if(acc.length !== 16){
+            alert("Account number must be exactly 16 digits");
+            return;
+        }
+
+        if(isNaN(amt) || amt <= 0){
+            alert("Enter a valid transfer amount");
+            return;
+        }
+
+        if(amt > balance){
+            alert("Insufficient Balance");
+            return;
+        }
+
+        balance -= amt;
+        localStorage.setItem("balance", balance);
+
+        document.getElementById("message").innerText =
+            "₹ " + amt + " transferred successfully to Account " + acc;
+    }
+</script>
+
+</body>
+</html>
