@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balance Check</title>
+    <style>
+        body{
+            background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+            font-family: Arial, sans-serif;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .card{
+            background:white;
+            width:400px;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 15px 30px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        h1{
+            color:#2c5364;
+            margin-bottom:20px;
+        }
+        .balance{
+            font-size:30px;
+            font-weight:bold;
+            color:green;
+            margin:20px 0;
+        }
+        button{
+            w:100%;
+            padding:12px;
+            background:#2c5364;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+        button:hover{
+            background:#203a43;
+        }
+    </style>
+</head>
+
+<body onload="showBalance()">
+
+<div class="card">
+    <h1>Account Balance</h1>
+    <div class="balance" id="balance"></div>
+
+    <button onclick="window.location.href='transfer.html'">
+        Transfer Money
+    </button>
+</div>
+
+<script>
+    if(!localStorage.getItem("balance")){
+        localStorage.setItem("balance", 50000);
+    }
+
+    function showBalance(){
+        document.getElementById("balance").innerText =
+            "₹ " + localStorage.getItem("balance");
+    }
+</script>
+
+</body>
+</html>
